@@ -44,7 +44,9 @@ bool GameManager::RunFrame() {
 }
 
 GameManager::~GameManager() {
-
+	if (m_LobbyID.IsLobby()) {
+		SteamMatchmaking()->LeaveLobby(m_LobbyID);
+	}
 }
 
 // CallBacks
