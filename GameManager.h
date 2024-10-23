@@ -13,6 +13,7 @@ private:
 	GameState m_State;
 	bool m_Quit;
 	CSteamID m_LobbyID;
+	bool m_Ready;
 
 public:
 	GameManager();

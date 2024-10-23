@@ -3,7 +3,8 @@
 
 GameManager::GameManager() :
 	m_State(GameState::MAINMENU),
-	m_Quit(false)
+	m_Quit(false),
+	m_Ready(false)
 {
 
 }
@@ -29,11 +30,21 @@ bool GameManager::RunFrame() {
 
 		for (int i = 0; i < SteamMatchmaking()->GetNumLobbyMembers(m_LobbyID); i++) {
 			CSteamID memberID = SteamMatchmaking()->GetLobbyMemberByIndex(m_LobbyID, i);
-			DrawText(SteamFriends()->GetFriendPersonaName(memberID), 15, 60 + i * 30, 25, BLACK);
+			const char* name = SteamFriends()->GetFriendPersonaName(memberID);
+			int width = MeasureText(name, 20);
+			DrawText(name, 15, 60 + i * 25, 20, BLACK);
+
+			const char* ready = SteamMatchmaking()->GetLobbyData(m_LobbyID, name);
+			DrawText(ready[0] == '1' ? "READY" : "NOT READY", 15 + width + 10, 60 + i * 25, 20, ready[0] == '1' ? GREEN : RED);
 		}
 
-		if (GuiButton({ 0, (float)GetScreenHeight() - 50, 200, 50}, "Invite Friend")) {
+		if (GuiButton({ 5, (float)(GetScreenHeight() * 0.9), 200, 50}, "Invite Friend")) {
 			SteamFriends()->ActivateGameOverlayInviteDialog(m_LobbyID);
+		}
+
+		if (GuiButton({ 205, (float)(GetScreenHeight() * 0.9), 200, 50}, "Toggle Ready")) {
+			m_Ready = !m_Ready;
+			SteamMatchmaking()->SetLobbyData(m_LobbyID, SteamFriends()->GetPersonaName(), m_Ready ? "1" : "0" );
 		}
 		break;
 	case GameState::INGAME:
@@ -73,6 +84,9 @@ void GameManager::OnCreateLobby(LobbyCreated_t* pCallback, bool bIOFailure) {
 
 	m_LobbyID.SetFromUint64(pCallback->m_ulSteamIDLobby);
 	m_State = GameState::INLOBBY;
+
+	// Set to Not ready when just joined the lobby
+	SteamMatchmaking()->SetLobbyData(m_LobbyID, SteamFriends()->GetPersonaName(), m_Ready ? "1" : "0" );
 }
 
 
@@ -89,4 +103,7 @@ void GameManager::OnJoinLobby(LobbyEnter_t* pCallback, bool bIOFailure) {
 
 	m_LobbyID = pCallback->m_ulSteamIDLobby;
 	m_State = GameState::INLOBBY;
+
+	// Set to Not ready when just joined the lobby
+	SteamMatchmaking()->SetLobbyData(m_LobbyID, SteamFriends()->GetPersonaName(), m_Ready ? "1" : "0" );
 }

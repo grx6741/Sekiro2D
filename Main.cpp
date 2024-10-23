@@ -11,7 +11,7 @@ int main() {
 
 	TraceLog(LOG_INFO, "Connected to Steam");
 
-	InitWindow(800, 600, "Sekiro2D");
+	InitWindow(1280, 720, "Sekiro2D");
 
 	bool quit = false;
 	GameManager gManager;
