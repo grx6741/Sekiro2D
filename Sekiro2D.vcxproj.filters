@@ -45,7 +45,7 @@
       <Filter>Source Files\Controller</Filter>
     </ClCompile>
     <ClCompile Include="NetworkController.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Controller</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -67,11 +67,11 @@
     <ClInclude Include="GamepadController.h">
       <Filter>Header Files\Controller</Filter>
     </ClInclude>
-    <ClInclude Include="NetworkController.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Player.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="NetworkController.h">
+      <Filter>Header Files\Controller</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

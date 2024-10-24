@@ -46,6 +46,11 @@ void NetworkController::update(f32 dt) {
 		TraceLog(LOG_ERROR, "Wierd Error");
 		break;
 	}
+
+	SteamNetConnectionRealTimeStatus_t realtimeStatus;
+	SteamNetworkingMessages()->GetSessionConnectionInfo(m_OtherPlayer, nullptr, &realtimeStatus);
+
+	DrawText(TextFormat("%s: %d ms", SteamFriends()->GetFriendPersonaName(m_OtherPlayer.GetSteamID()), realtimeStatus.m_nPing), 0, 0, 20, BLACK);
 }
 
 // Callbacks
