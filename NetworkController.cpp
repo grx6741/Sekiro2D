@@ -3,6 +3,9 @@
 NetworkController::NetworkController(Player* currentPlayer, CSteamID otherPlayer) {
 	m_OtherPlayer.SetSteamID(otherPlayer);
 	m_CurrPlayer = currentPlayer;
+
+	TraceLog(LOG_INFO, "[Network Controller] Player1 %s", SteamFriends()->GetPersonaName());
+	TraceLog(LOG_INFO, "[Network Controller] Player2 %s", SteamFriends()->GetFriendPersonaName(otherPlayer));
 }
 
 std::tuple<PlayerAction, PlayerAction> NetworkController::nextAction()
