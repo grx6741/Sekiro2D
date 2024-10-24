@@ -66,7 +66,7 @@ void GameManager::RenderInLobbyScreen() {
 		CSteamID memberID = SteamMatchmaking()->GetLobbyMemberByIndex(m_LobbyID, i);
 
 		// Works because there are only two players in a lobby
-		if (m_OtherPlayerID.IsValid() && memberID.ConvertToUint64() == SteamUser()->GetSteamID().ConvertToUint64()) {
+		if (m_OtherPlayerID.IsValid() && memberID.ConvertToUint64() != SteamUser()->GetSteamID().ConvertToUint64()) {
 			m_OtherPlayerID = memberID;
 		}
 
