@@ -145,12 +145,22 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GameManager.cpp" />
+    <ClCompile Include="GamepadController.cpp" />
+    <ClCompile Include="KeyboardController.cpp" />
     <ClCompile Include="Main.cpp" />
+    <ClCompile Include="NetworkController.cpp" />
+    <ClCompile Include="Player.cpp" />
     <ClCompile Include="raygui.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Common.h" />
+    <ClInclude Include="Controller.h" />
     <ClInclude Include="GameManager.h" />
+    <ClInclude Include="GamepadController.h" />
     <ClInclude Include="GameStates.h" />
+    <ClInclude Include="KeyboardController.h" />
+    <ClInclude Include="NetworkController.h" />
+    <ClInclude Include="Player.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
