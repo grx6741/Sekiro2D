@@ -66,8 +66,9 @@ void GameManager::RenderInLobbyScreen() {
 		CSteamID memberID = SteamMatchmaking()->GetLobbyMemberByIndex(m_LobbyID, i);
 
 		// Works because there are only two players in a lobby
-		if (m_OtherPlayerID.IsValid() && memberID.ConvertToUint64() != SteamUser()->GetSteamID().ConvertToUint64()) {
-			m_OtherPlayerID = memberID;
+		if (!m_OtherPlayerID.IsValid() && memberID.ConvertToUint64() != SteamUser()->GetSteamID().ConvertToUint64()) {
+			TraceLog(LOG_INFO, "[GameManager] %" PRIu64, memberID.ConvertToUint64());
+			m_OtherPlayerID.SetFromUint64(memberID.ConvertToUint64());
 		}
 
 		const char* name = SteamFriends()->GetFriendPersonaName(memberID);
