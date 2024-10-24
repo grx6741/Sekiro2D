@@ -1,11 +1,13 @@
 #include "NetworkController.h"
 
+#include <cinttypes>
+
 NetworkController::NetworkController(Player* currentPlayer, CSteamID otherPlayer) {
 	m_OtherPlayer.SetSteamID(otherPlayer);
 	m_CurrPlayer = currentPlayer;
 
-	TraceLog(LOG_INFO, "[Network Controller] Player1 %s", SteamFriends()->GetPersonaName());
-	TraceLog(LOG_INFO, "[Network Controller] Player2 %s", SteamFriends()->GetFriendPersonaName(otherPlayer));
+	TraceLog(LOG_INFO, "[Network Controller] Player1 %s : %" PRIu64, SteamFriends()->GetPersonaName(), SteamUser()->GetSteamID().ConvertToUint64());
+	TraceLog(LOG_INFO, "[Network Controller] Player2 %s : %" PRIu64, SteamFriends()->GetFriendPersonaName(otherPlayer), otherPlayer.ConvertToUint64());
 }
 
 std::tuple<PlayerAction, PlayerAction> NetworkController::nextAction()
