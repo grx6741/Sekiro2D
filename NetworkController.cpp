@@ -34,7 +34,7 @@ void NetworkController::update(f32 dt) {
 
 	PlayerAction actions[2] = { std::get<0>(action), std::get<1>(action) };
 
-	EResult res = SteamNetworkingMessages()->SendMessageToUser(m_OtherPlayer, actions, sizeof(actions), k_nSteamNetworkingSend_Reliable , 0);
+	EResult res = SteamNetworkingMessages()->SendMessageToUser(m_OtherPlayer, actions, sizeof(actions), k_nSteamNetworkingSend_Unreliable, 0);
 
 	switch (res) {
 	case k_EResultOK:
